@@ -7,6 +7,11 @@ pipeline {
     }
 
     stages {
+        stage('Cleanup') {
+            steps {
+                deleteDir()  // wipes out everything in workspace
+            }
+        }
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/Keerthana-T-P/on-this-day.git'

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: twitter-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: twitter-bot
+  template:
+    metadata:
+      labels:
+        app: twitter-bot
+    spec:
+      containers:
+      - name: twitter-bot
+        image: <your-dockerhub-username>/twitter-bot:latest
+        imagePullPolicy: Always
+        env:
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: twitter-secrets
+              key: api_key
+        - name: API_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: twitter-secrets
+              key: api_secret
+        - name: ACCESS_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: twitter-secrets
+              key: access_token
+        - name: ACCESS_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: twitter-secrets
+              key: access_secret

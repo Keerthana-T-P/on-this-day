@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        REGISTRY = "docker.io/<your-dockerhub-username>"
+        REGISTRY = "docker.io/keerthanatp"
         IMAGE = "twitter-bot"
     }
 
@@ -21,7 +21,7 @@ pipeline {
 
         stage('Push to DockerHub') {
             steps {
-                withDockerRegistry([ credentialsId: 'dockerhub-creds', url: '' ]) {
+                withDockerRegistry([ credentialsId: 'docker-hub-creds', url: '' ]) {
                     sh "docker push $REGISTRY/$IMAGE:latest"
                 }
             }

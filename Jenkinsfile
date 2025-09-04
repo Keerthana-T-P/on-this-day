@@ -13,10 +13,16 @@ pipeline {
             }
         }
         stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/Keerthana-T-P/on-this-day.git'
-            }
-        }
+    steps {
+        checkout([$class: 'GitSCM',
+            branches: [[name: '*/main']],
+            userRemoteConfigs: [[url: 'https://github.com/Keerthana-T-P/on-this-day.git']],
+            doGenerateSubmoduleConfigurations: false,
+            extensions: [[$class: 'WipeWorkspace']]
+        ])
+    }
+}
+
 
         stage('Build Docker Image') {
             steps {
